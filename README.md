@@ -1,4 +1,3 @@
-RubySchool, Lesson 24
+My_new_ver_lesson26 
 ====================
 
-Repository for Lesson 24
