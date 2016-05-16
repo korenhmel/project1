@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95d0274a-776e-45d1-a5fd-7ab745063af4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-    </list>
+    <list default="true" id="95d0274a-776e-45d1-a5fd-7ab745063af4" name="Default" comment="" />
     <ignored path="my_new_ver_lesson26.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -249,7 +247,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="989" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="989" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26726973" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
