@@ -2,47 +2,59 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'pony'
+require 'sqlite3'
 # require 'sinatra/reloader'
+configure do
+  @db = SQLite3::Database.new 'BarberShop3.db'
+  @db.execute 'CREATE TABLE IF NOT EXISTS
+ "Users"
+(
+"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+ "username" TEXT, "phone" TEXT,
+ "datestamp" TEXT, "barber" TEXT,
+ "color" TEXT
+)'
+end
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"
+  erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"
 end
 
 get '/about' do
-	@error = 'smth went wrong!!!'
-	erb :about
+  @error = 'smth went wrong!!!'
+  erb :about
 end
 
 get '/contacts' do
-	haml :contacts
+  haml :contacts
 end
 
 get '/visit' do
-	erb :visit
+  erb :visit
 end
 post '/contact' do
-	name = params[:name]
-	mail = params[:mail]
-	body = params[:body]
-	Pony.mail(:to => 'koren.hmel@gmail.com', :from => mail, :subject => 'art inquiry from'+ name, :body => body)
-	haml :contacts
+  name = params[:name]
+  mail = params[:mail]
+  body = params[:body]
+  Pony.mail(:to => 'koren.hmel@gmail.com', :from => mail, :subject => 'art inquiry from'+ name, :body => body)
+  haml :contacts
 end
 post '/visit' do
 
-	@username = params[:username]
-	@phone = params[:phone]
-	@datetime = params[:datetime]
-	@barber = params[:barber]
-	@color = params[:color]
+  @username = params[:username]
+  @phone    = params[:phone]
+  @datetime = params[:datetime]
+  @barber   = params[:barber]
+  @color    = params[:color]
 
-	hh = {username: 'имя', phone: ' ваш телефон', datetime: ' дату и число встречи'}
+  hh = { username: 'имя', phone: ' ваш телефон', datetime: ' дату и число встречи' }
 
-	if @username.empty?|| @datetime.empty? ||@phone.empty?
-		@error ="Введите #{hh.select {|key,value| params[key] == ""}.values.join(", ")}"
-		return erb :visit
-	else
-		@succes = "#{@username}, с вами назначена встреча на #{@datetime}. Ваша персональная инф: Имя: #{@username}, телефон: #{@phone}"
-		return erb :visit
-	end
+  if @username.empty?|| @datetime.empty? ||@phone.empty?
+    @error ="Введите #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
+    return erb :visit
+  else
+    @succes = "#{@username}, с вами назначена встреча на #{@datetime}. Ваша персональная инф: Имя: #{@username}, телефон: #{@phone}"
+    return erb :visit
+  end
 end
 
