@@ -5,8 +5,11 @@ require 'pony'
 require 'sqlite3'
 # require 'sinatra/reloader'
 configure do
-  @db = SQLite3::Database.new 'BarberShop3.db'
-  @db.execute 'CREATE TABLE IF NOT EXISTS
+  def get_db
+    return SQLite3::Database.new 'BarberShop3.db'
+  end
+  db = get_db
+  db.execute 'CREATE TABLE IF NOT EXISTS
  "Users"
 (
 "id" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,12 +52,26 @@ post '/visit' do
 
   hh = { username: 'имя', phone: ' ваш телефон', datetime: ' дату и число встречи' }
 
+
   if @username.empty?|| @datetime.empty? ||@phone.empty?
     @error ="Введите #{hh.select { |key, value| params[key] == "" }.values.join(", ")}"
     return erb :visit
   else
+    db = get_db
+    db.execute 'insert into
+  users
+(
+username,
+phone,
+datestamp,
+barber,
+color
+)
+values (?,?,?,?,?)', [@username, @phone, @datetime, @barber, @color]
     @succes = "#{@username}, с вами назначена встреча на #{@datetime}. Ваша персональная инф: Имя: #{@username}, телефон: #{@phone}"
     return erb :visit
   end
+
+
 end
 
