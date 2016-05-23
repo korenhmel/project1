@@ -35,6 +35,19 @@ end
 get '/visit' do
   erb :visit
 end
+get '/showusers' do
+  db = get_db
+  db.results_as_hash = true
+
+     @results = db.execute 'select * from Users order by id desc'
+  # @results = db.execute 'select * from Users '
+
+
+      # f = File.open("views/showusers.erb", "r")
+      # f.write "<p> visitors name: #{row['username']} дата приема #{ row['datestamp']}"
+      # f.close
+  erb :showusers
+end
 post '/contact' do
   name = params[:name]
   mail = params[:mail]
